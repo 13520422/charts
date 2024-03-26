@@ -15,13 +15,11 @@
 
 import 'package:flutter/widgets.dart' show AnimationController;
 
-import 'package:charts_common/common.dart' as common
-    show BaseChart, ChartBehavior, InitialHintBehavior;
+import 'package:charts_common/common.dart' as common show BaseChart, ChartBehavior, InitialHintBehavior;
 import 'package:meta/meta.dart' show immutable;
 
 import '../../base_chart_state.dart' show BaseChartState;
-import '../chart_behavior.dart'
-    show ChartBehavior, ChartStateBehavior, GestureType;
+import '../chart_behavior.dart' show ChartBehavior, ChartStateBehavior, GestureType;
 
 @immutable
 class InitialHintBehavior<D> extends ChartBehavior<D> {
@@ -31,8 +29,7 @@ class InitialHintBehavior<D> extends ChartBehavior<D> {
   final double? maxHintTranslate;
   final double? maxHintScaleFactor;
 
-  InitialHintBehavior(
-      {this.hintDuration, this.maxHintTranslate, this.maxHintScaleFactor});
+  InitialHintBehavior({this.hintDuration, this.maxHintTranslate, this.maxHintScaleFactor});
 
   @override
   common.InitialHintBehavior<D> createCommonBehavior() {
@@ -70,15 +67,12 @@ class InitialHintBehavior<D> extends ChartBehavior<D> {
 
 /// Adds a native animation controller required for [common.InitialHintBehavior]
 /// to function.
-class FlutterInitialHintBehavior<D> extends common.InitialHintBehavior<D>
-    implements ChartStateBehavior {
+class FlutterInitialHintBehavior<D> extends common.InitialHintBehavior<D> implements ChartStateBehavior {
   AnimationController? _hintAnimator;
 
   BaseChartState? _chartState;
 
   set chartState(BaseChartState chartState) {
-    assert(chartState != null);
-
     _chartState = chartState;
 
     _hintAnimator = chartState.getAnimationController(this);

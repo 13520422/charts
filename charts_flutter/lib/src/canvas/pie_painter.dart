@@ -40,11 +40,9 @@ class PiePainter {
 
     // Draw stroke lines between pie slices. This is done after the slices are
     // drawn to ensure that they appear on top.
-    if (canvasPie.stroke != null &&
-        canvasPie.strokeWidthPx != null &&
-        canvasPie.slices.length > 1) {
-      paint.color = new Color.fromARGB(canvasPie.stroke!.a, canvasPie.stroke!.r,
-          canvasPie.stroke!.g, canvasPie.stroke!.b);
+    if (canvasPie.stroke != null && canvasPie.slices.length > 1) {
+      paint.color =
+          new Color.fromARGB(canvasPie.stroke!.a, canvasPie.stroke!.r, canvasPie.stroke!.g, canvasPie.stroke!.b);
 
       paint.strokeWidth = canvasPie.strokeWidthPx;
       paint.strokeJoin = StrokeJoin.bevel;
@@ -54,20 +52,16 @@ class PiePainter {
 
       for (var slice in canvasPie.slices) {
         final innerRadiusStartPoint = new Point<double>(
-            innerRadius * cos(slice.startAngle) + center.x,
-            innerRadius * sin(slice.startAngle) + center.y);
+            innerRadius * cos(slice.startAngle) + center.x, innerRadius * sin(slice.startAngle) + center.y);
 
         final innerRadiusEndPoint = new Point<double>(
-            innerRadius * cos(slice.endAngle) + center.x,
-            innerRadius * sin(slice.endAngle) + center.y);
+            innerRadius * cos(slice.endAngle) + center.x, innerRadius * sin(slice.endAngle) + center.y);
 
-        final radiusStartPoint = new Point<double>(
-            radius * cos(slice.startAngle) + center.x,
-            radius * sin(slice.startAngle) + center.y);
+        final radiusStartPoint =
+            new Point<double>(radius * cos(slice.startAngle) + center.x, radius * sin(slice.startAngle) + center.y);
 
-        final radiusEndPoint = new Point<double>(
-            radius * cos(slice.endAngle) + center.x,
-            radius * sin(slice.endAngle) + center.y);
+        final radiusEndPoint =
+            new Point<double>(radius * cos(slice.endAngle) + center.x, radius * sin(slice.endAngle) + center.y);
 
         path.moveTo(innerRadiusStartPoint.x, innerRadiusStartPoint.y);
 

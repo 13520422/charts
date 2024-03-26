@@ -29,16 +29,11 @@ class PointPainter {
       common.Color? fill,
       common.Color? stroke,
       double? strokeWidthPx}) {
-    if (point == null) {
-      return;
-    }
-
     if (fill != null) {
       paint.color = new Color.fromARGB(fill.a, fill.r, fill.g, fill.b);
       paint.style = PaintingStyle.fill;
 
-      canvas.drawCircle(
-          new Offset(point.x.toDouble(), point.y.toDouble()), radius, paint);
+      canvas.drawCircle(new Offset(point.x.toDouble(), point.y.toDouble()), radius, paint);
     }
 
     // [Canvas.drawCircle] does not support drawing a circle with both a fill
@@ -49,8 +44,7 @@ class PointPainter {
       paint.strokeJoin = StrokeJoin.bevel;
       paint.style = PaintingStyle.stroke;
 
-      canvas.drawCircle(
-          new Offset(point.x.toDouble(), point.y.toDouble()), radius, paint);
+      canvas.drawCircle(new Offset(point.x.toDouble(), point.y.toDouble()), radius, paint);
     }
   }
 }

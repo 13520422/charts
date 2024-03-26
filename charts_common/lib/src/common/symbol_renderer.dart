@@ -108,9 +108,7 @@ class RoundedRectSymbolRenderer extends SymbolRenderer {
 
   @override
   bool operator ==(Object other) {
-    return other is RoundedRectSymbolRenderer &&
-        other.radius == radius &&
-        super == other;
+    return other is RoundedRectSymbolRenderer && other.radius == radius && super == other;
   }
 
   @override
@@ -134,8 +132,7 @@ class LineSymbolRenderer extends SymbolRenderer {
   /// Dash pattern for the line.
   final List<int>? _dashPattern;
 
-  LineSymbolRenderer(
-      {List<int>? dashPattern, bool isSolid = true, double? strokeWidth})
+  LineSymbolRenderer({List<int>? dashPattern, bool isSolid = true, double? strokeWidth})
       : strokeWidth = strokeWidth ?? strokeWidthForRoundEndCaps,
         _dashPattern = dashPattern,
         super(isSolid: isSolid);
@@ -191,9 +188,7 @@ class LineSymbolRenderer extends SymbolRenderer {
 
   @override
   bool operator ==(Object other) {
-    return other is LineSymbolRenderer &&
-        other.strokeWidth == strokeWidth &&
-        super == other;
+    return other is LineSymbolRenderer && other.strokeWidth == strokeWidth && super == other;
   }
 
   @override
@@ -234,8 +229,7 @@ class CircleSymbolRenderer extends SymbolRenderer {
   }
 
   @override
-  bool operator ==(Object other) =>
-      other is CircleSymbolRenderer && super == other;
+  bool operator ==(Object other) => other is CircleSymbolRenderer && super == other;
 
   @override
   int get hashCode {
@@ -257,9 +251,7 @@ class RectSymbolRenderer extends SymbolRenderer {
       Color? strokeColor,
       double? strokeWidthPx}) {
     canvas.drawRect(bounds,
-        fill: getSolidFillColor(fillColor),
-        stroke: strokeColor,
-        strokeWidthPx: getSolidStrokeWidthPx(strokeWidthPx));
+        fill: getSolidFillColor(fillColor), stroke: strokeColor, strokeWidthPx: getSolidStrokeWidthPx(strokeWidthPx));
   }
 
   @override
@@ -268,8 +260,7 @@ class RectSymbolRenderer extends SymbolRenderer {
   }
 
   @override
-  bool operator ==(Object other) =>
-      other is RectSymbolRenderer && super == other;
+  bool operator ==(Object other) => other is RectSymbolRenderer && super == other;
 
   @override
   int get hashCode {
@@ -296,15 +287,11 @@ class TriangleSymbolRenderer extends SymbolRenderer {
     // triangle whose tall side is the height of our equilateral triangle.
     final dy = sqrt(3) / 2 * bounds.width;
     final centerX = (bounds.left + bounds.right) / 2;
-    canvas.drawPolygon(
-        points: [
-          Point(bounds.left, bounds.top + dy),
-          Point(bounds.right, bounds.top + dy),
-          Point(centerX, bounds.top),
-        ],
-        fill: getSolidFillColor(fillColor),
-        stroke: strokeColor,
-        strokeWidthPx: getSolidStrokeWidthPx(strokeWidthPx));
+    canvas.drawPolygon(points: [
+      Point(bounds.left, bounds.top + dy),
+      Point(bounds.right, bounds.top + dy),
+      Point(centerX, bounds.top),
+    ], fill: getSolidFillColor(fillColor), stroke: strokeColor, strokeWidthPx: getSolidStrokeWidthPx(strokeWidthPx));
   }
 
   @override
@@ -314,8 +301,7 @@ class TriangleSymbolRenderer extends SymbolRenderer {
 
   @override
   // ignore: hash_and_equals
-  bool operator ==(Object other) =>
-      other is TriangleSymbolRenderer && super == other;
+  bool operator ==(Object other) => other is TriangleSymbolRenderer && super == other;
 }
 
 /// Draws a cylindrical shape connecting two points.
@@ -324,26 +310,12 @@ class CylinderSymbolRenderer extends PointSymbolRenderer {
 
   @override
   void paint(ChartCanvas canvas, Point<double> p1, double radius,
-      {required Point<double> p2,
-      Color? fillColor,
-      Color? strokeColor,
-      double? strokeWidthPx}) {
-    if (p1 == null) {
-      throw ArgumentError('Invalid point p1 "${p1}"');
-    }
-
-    if (p2 == null) {
-      throw ArgumentError('Invalid point p2 "${p2}"');
-    }
-
+      {required Point<double> p2, Color? fillColor, Color? strokeColor, double? strokeWidthPx}) {
     final adjustedP1 = Point<double>(p1.x, p1.y);
     final adjustedP2 = Point<double>(p2.x, p2.y);
 
-    canvas.drawLine(
-        points: [adjustedP1, adjustedP2],
-        stroke: strokeColor,
-        roundEndCaps: true,
-        strokeWidthPx: radius * 2);
+    canvas
+        .drawLine(points: [adjustedP1, adjustedP2], stroke: strokeColor, roundEndCaps: true, strokeWidthPx: radius * 2);
   }
 
   @override
@@ -364,26 +336,12 @@ class RectangleRangeSymbolRenderer extends PointSymbolRenderer {
 
   @override
   void paint(ChartCanvas canvas, Point<double> p1, double radius,
-      {required Point<double> p2,
-      Color? fillColor,
-      Color? strokeColor,
-      double? strokeWidthPx}) {
-    if (p1 == null) {
-      throw ArgumentError('Invalid point p1 "${p1}"');
-    }
-
-    if (p2 == null) {
-      throw ArgumentError('Invalid point p2 "${p2}"');
-    }
-
+      {required Point<double> p2, Color? fillColor, Color? strokeColor, double? strokeWidthPx}) {
     final adjustedP1 = Point<double>(p1.x, p1.y);
     final adjustedP2 = Point<double>(p2.x, p2.y);
 
     canvas.drawLine(
-        points: [adjustedP1, adjustedP2],
-        stroke: strokeColor,
-        roundEndCaps: false,
-        strokeWidthPx: radius * 2);
+        points: [adjustedP1, adjustedP2], stroke: strokeColor, roundEndCaps: false, strokeWidthPx: radius * 2);
   }
 
   @override

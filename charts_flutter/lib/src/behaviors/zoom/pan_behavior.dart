@@ -23,8 +23,7 @@ import 'package:charts_common/common.dart' as common
 import 'package:meta/meta.dart' show immutable;
 
 import '../../base_chart_state.dart' show BaseChartState;
-import '../chart_behavior.dart'
-    show ChartBehavior, ChartStateBehavior, GestureType;
+import '../chart_behavior.dart' show ChartBehavior, ChartStateBehavior, GestureType;
 
 @immutable
 class PanBehavior<D> extends ChartBehavior<D> {
@@ -44,8 +43,7 @@ class PanBehavior<D> extends ChartBehavior<D> {
 
   @override
   common.PanBehavior<D> createCommonBehavior() {
-    return new FlutterPanBehavior<D>()
-      ..panningCompletedCallback = panningCompletedCallback;
+    return new FlutterPanBehavior<D>()..panningCompletedCallback = panningCompletedCallback;
   }
 
   @override
@@ -55,8 +53,7 @@ class PanBehavior<D> extends ChartBehavior<D> {
   String get role => 'Pan';
 
   bool operator ==(Object other) {
-    return other is PanBehavior &&
-        other.panningCompletedCallback == panningCompletedCallback;
+    return other is PanBehavior && other.panningCompletedCallback == panningCompletedCallback;
   }
 
   int get hashCode {
@@ -65,18 +62,14 @@ class PanBehavior<D> extends ChartBehavior<D> {
 }
 
 /// Class extending [common.PanBehavior] with fling gesture support.
-class FlutterPanBehavior<D> = common.PanBehavior<D>
-    with FlutterPanBehaviorMixin;
+class FlutterPanBehavior<D> = common.PanBehavior<D> with FlutterPanBehaviorMixin;
 
 /// Mixin that adds fling gesture support to [common.PanBehavior] or subclasses
 /// thereof.
-mixin FlutterPanBehaviorMixin<D> on common.PanBehavior<D>
-    implements ChartStateBehavior {
+mixin FlutterPanBehaviorMixin<D> on common.PanBehavior<D> implements ChartStateBehavior {
   late BaseChartState _chartState;
 
   set chartState(BaseChartState chartState) {
-    assert(chartState != null);
-
     _chartState = chartState;
     _flingAnimator = chartState.getAnimationController(this);
     _flingAnimator?.addListener(_onFlingTick);
@@ -112,8 +105,7 @@ mixin FlutterPanBehaviorMixin<D> on common.PanBehavior<D>
   }
 
   @override
-  bool onDragEnd(
-      Point<double> localPosition, double scale, double pixelsPerSec) {
+  bool onDragEnd(Point<double> localPosition, double scale, double pixelsPerSec) {
     if (isPanning) {
       // Ignore slow drag gestures to avoid jitter.
       if (pixelsPerSec.abs() < minimumFlingVelocity) {
@@ -132,12 +124,9 @@ mixin FlutterPanBehaviorMixin<D> on common.PanBehavior<D>
     final domainAxis = chart!.domainAxis;
 
     _flingAnimationInitialTranslatePx = domainAxis!.viewportTranslatePx;
-    _flingAnimationTargetTranslatePx = _flingAnimationInitialTranslatePx +
-        pixelsPerSec * flingDistanceMultiplier;
+    _flingAnimationTargetTranslatePx = _flingAnimationInitialTranslatePx + pixelsPerSec * flingDistanceMultiplier;
 
-    final flingDuration = new Duration(
-        milliseconds:
-            max(200, (pixelsPerSec * flingDurationMultiplier).abs().round()));
+    final flingDuration = new Duration(milliseconds: max(200, (pixelsPerSec * flingDurationMultiplier).abs().round()));
 
     _flingAnimator!
       ..duration = flingDuration
@@ -158,13 +147,12 @@ mixin FlutterPanBehaviorMixin<D> on common.PanBehavior<D>
 
     final percent = _flingAnimator!.value;
     final deceleratedPercent = _decelerate(percent);
-    final translation = lerpDouble(_flingAnimationInitialTranslatePx,
-        _flingAnimationTargetTranslatePx, deceleratedPercent);
+    final translation =
+        lerpDouble(_flingAnimationInitialTranslatePx, _flingAnimationTargetTranslatePx, deceleratedPercent);
 
     final domainAxis = chart!.domainAxis!;
 
-    domainAxis.setViewportSettings(
-        domainAxis.viewportScalingFactor, translation!,
+    domainAxis.setViewportSettings(domainAxis.viewportScalingFactor, translation!,
         drawAreaWidth: chart!.drawAreaBounds.width);
 
     if (percent >= 1.0) {
